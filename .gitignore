@@ -26,11 +26,6 @@
 *.a
 *.lib
 
-# Executables
-*.exe
-*.out
-*.app
-
 # Macos be like
 **/.DS_Store
 
