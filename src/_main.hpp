@@ -85,3 +85,8 @@ namespace geode::utils::string {
         return vec;
     }
 }
+
+inline auto repo = fs::path("user95401/GemetryTrash");
+inline auto repobranch = fs::path("user95401/GemetryTrash/main");
+inline auto repo_lnk = fs::path("https://github.com" / repo);
+inline auto raw_content_repo_lnk = fs::path("https://raw.githubusercontent.com" / repobranch);
