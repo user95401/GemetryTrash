@@ -1,3 +1,4 @@
+#pragma once
 #include <_main.hpp>
 #include <Geode/utils/web.hpp>
 
@@ -16,7 +17,7 @@ inline void downloadModsFromList(int id = 0) {
                 if (mods_list.contains(nextid)) {
                     downloadModsFromList(nextid);
                 }
-                else game::restart();
+                //else game::restart();
                 };
             if (web::WebResponse* res = e->getValue()) {
                 std::string data = res->string().unwrapOr("no res");
