@@ -94,3 +94,5 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "download_mods.hpp"
 #include "save_location.hpp"
 #include "links.hpp"
+#include "resources.hpp"
+#include "special_sprites.hpp"

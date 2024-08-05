@@ -75,8 +75,9 @@ inline void getListAndStartDownloadingMods() {
                     }
                     auto popup = createQuickPopup(
                         "Downloading mods...",
-                        "<cr>DON'T CLOSE THE GAME</c>"
-                        "\ngame will be restarted after finish",
+                        "\n"
+                        "<cr>DON'T CLOSE THE GAME</c>""\n"
+                        "game will be restarted after finish",
                         "a", "a", [](auto, auto) {}, false
                     );
                     popup->m_button1->setVisible(0);

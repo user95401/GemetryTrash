@@ -11,5 +11,22 @@
 	"version": "v1.0.0",
 	"developer": "user95401",
 	"description": "",
-	"early-load": true
+	"early-load": true,
+	"resources": {
+		"sprites": [
+			"resources/*.png"
+		],
+		"spritesheets": {
+			"repl_main": [
+				"resources/repl_main/*.png",
+				"resources/repl_PlayerExplosion_01/*.png"
+			]
+		},
+		"files": [
+			"resources/files/*",
+			"resources/*.mp3",
+			"resources/*.ogg",
+			"resources/*.plist"
+		]
+	}
 }
