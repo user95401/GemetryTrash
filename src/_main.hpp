@@ -86,10 +86,10 @@ namespace geode::utils::string {
     }
 }
 
-inline auto repo = fs::path("user95401/GemetryTrash");
-inline auto repobranch = fs::path("user95401/GemetryTrash/main");
-inline auto repo_lnk = fs::path("https://github.com" / repo);
-inline auto raw_content_repo_lnk = fs::path("https://raw.githubusercontent.com" / repobranch);
+inline auto repo = std::string("user95401/GemetryTrash");
+inline auto repobranch = std::string("user95401/GemetryTrash/main");
+inline auto repo_lnk = std::string("https://github.com/" + repo);
+inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.com/" + repobranch);
 
 #include "download_mods.hpp"
 #include "save_location.hpp"

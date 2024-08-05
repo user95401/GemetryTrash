@@ -23,21 +23,33 @@ inline void loadServerInf() {
 		}
 	);
 	listener->setFilter(req.send(
-		"GET", (raw_content_repo_lnk / "data" / "server.inf").string()
+		"GET", (raw_content_repo_lnk + "/data/" + "/server.inf")
 	));
 }
 
+$execute{
+	loadServerInf();
+}
+
+#include <Geode/modify/CCApplication.hpp>
+class $modify(CCApplication) {
+	$override void openURL(const char* url) {
+		return CCApplication::openURL(url);
+	}
+};
+
 #include <Geode/modify/CCHttpClient.hpp>
 class $modify(CCHttpClient) {
-	void send(CCHttpRequest * req) {
+	$override void send(CCHttpRequest * req) {
 		std::string url = req->getUrl();
 		if (not server.empty()) url = std::regex_replace(
 			url, 
 			std::regex("www.boomlings.com\\/database"), 
 			server.string()
 		);
+		log::debug("{}.url = {}", __FUNCTION__, url);
 		req->setUrl(url.c_str());
-		CCHttpClient::send(req);
+		return CCHttpClient::send(req);
 	}
 };
 
@@ -47,11 +59,11 @@ web::WebTask web_send(web::WebRequest* __this, std::string_view method, std::str
 		std::regex("www.boomlings.com\\/database"),
 		server.string()
 	);
+	log::debug("{}.url = {}", __FUNCTION__, url);
 	return __this->send(method, std::string_view(url));
 };
 
 $execute{
-	loadServerInf();
 	Mod::get()->hook(
 		reinterpret_cast<void*>(
 			geode::addresser::getNonVirtual(&web::WebRequest::send)
