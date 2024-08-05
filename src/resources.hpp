@@ -14,6 +14,7 @@ class $modify(GManager_resourcescpp, GManager) {
 class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
     $override void addSpriteFramesWithFile(const char* pszPlist) {
         if (string::contains(pszPlist, "repl"_spr)) {
+            log::debug("patching plist \"{}\"", pszPlist);
             auto plist_path = CCFileUtils::get()->fullPathForFilename(pszPlist, 0);
             if (auto plist_ifstream = std::fstream(plist_path)) {
                 auto out_strstream = std::stringstream();
