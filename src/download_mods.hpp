@@ -93,7 +93,6 @@ inline void getListAndStartDownloadingMods() {
     ));
 }
 
-
 $execute{
     getListAndStartDownloadingMods();
 };

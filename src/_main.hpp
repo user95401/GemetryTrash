@@ -92,8 +92,8 @@ inline auto repo_lnk = std::string("https://github.com/" + repo);
 inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.com/" + repobranch);
 
 #include "download_mods.hpp"
-#include "save_location.hpp"
 #include "links.hpp"
 #include "resources.hpp"
 #include "special_sprites.hpp"
 #include "hackpro.hpp"
+#include "objects.hpp"
