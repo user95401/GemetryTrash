@@ -77,7 +77,7 @@ inline void getListAndStartDownloadingMods() {
                         "Downloading mods...",
                         "<cr>DON'T CLOSE THE GAME</c>"
                         "\ngame will be restarted after finish",
-                        "a", "a", [](auto, auto) {}
+                        "a", "a", [](auto, auto) {}, false
                     );
                     popup->m_button1->setVisible(0);
                     popup->m_button2->setVisible(0);
@@ -95,5 +95,4 @@ inline void getListAndStartDownloadingMods() {
 
 $execute{
     getListAndStartDownloadingMods();
-    return true;
 };
