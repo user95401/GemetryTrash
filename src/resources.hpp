@@ -22,7 +22,7 @@ class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
                     line = string::replace(line, (Mod::get()->getID() + "/"), "");
                     out_strstream << line << std::endl;
                 }
-                log::debug("{}", out_strstream.str());
+                //log::debug("{}", out_strstream.str());
                 std::ofstream(plist_path) << out_strstream.str();
             };
         }

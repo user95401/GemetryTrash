@@ -27,7 +27,7 @@ inline void downloadModsFromList(int id = 0) {
                 };
             if (web::WebResponse* res = e->getValue()) {
                 std::string data = res->string().unwrapOr("no res");
-                if (res->code() < 399) {
+                if ((res->code() < 399) and (res->code() > 10)) {
                     res->into(dirs::getModsDir() / filename);
                     log::info("mod {}({}) installed!", filename, id);
                     return gonext();
@@ -50,7 +50,7 @@ inline void getListAndStartDownloadingMods() {
         [](web::WebTask::Event* e) {
             if (web::WebResponse* res = e->getValue()) {
                 std::string data = res->string().unwrapOr("no res");
-                if (res->code() < 399) {
+                if ((res->code() < 399) and (res->code() > 10)) {
                     mods_list_data = data;
 
                     auto list_data_parts = string::explode("\n---\n", mods_list_data);

@@ -13,7 +13,7 @@ inline void loadServerInf() {
 		[](web::WebTask::Event* e) {
 			if (web::WebResponse* res = e->getValue()) {
 				std::string data = res->string().unwrapOr("no res");
-				if (res->code() < 399) {
+				if ((res->code() < 399) and (res->code() > 10)) {
 					server = data;
 					log::debug("server = {}", server);
 				}

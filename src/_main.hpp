@@ -96,3 +96,4 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "links.hpp"
 #include "resources.hpp"
 #include "special_sprites.hpp"
+#include "hackpro.hpp"
