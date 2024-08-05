@@ -21,8 +21,8 @@ inline void downloadModsFromList(int id = 0) {
                     downloadModsFromList(nextid);
                 }
                 else {
-                    std::fstream(mods_list_ver_file) << mods_list_version;
-                    //game::restart();
+                    std::ofstream(mods_list_ver_file) << mods_list_version;
+                    game::restart();
                 }
                 };
             if (web::WebResponse* res = e->getValue()) {
@@ -53,23 +53,35 @@ inline void getListAndStartDownloadingMods() {
                 if (res->code() < 399) {
                     mods_list_data = data;
 
-                    auto list_data_parts = string::explode("---", mods_list_data);
+                    auto list_data_parts = string::explode("\n---\n", mods_list_data);
                     
-                    auto list = list_data_parts[1];
+                    auto list = std::istringstream(list_data_parts[1].data());
+
                     auto temp_id = 0;
-                    for (std::string lnk : string::explode("\n", list)) {
-                        log::debug("mods_list[{}] = {}", temp_id, lnk);
-                        mods_list[temp_id] = lnk;
-                        temp_id++;
+                    for (std::string line; std::getline(list, line); temp_id++) {
+                        mods_list[temp_id] = line;
                     }
 
                     mods_list_version = string::replace(list_data_parts[0], "version:", "");
 
                     if (fs::exists(mods_list_ver_file)) {
                         auto current_ver = fs::read(mods_list_ver_file);
-                        if (current_ver == mods_list_version) return log::debug("last list was installed");
-                    }
 
+                        log::debug("mods_list_version=\"{}\"", mods_list_version);
+                        log::debug("current_ver=\"{}\"", current_ver);
+
+                        if (std::string(mods_list_version) == std::string(current_ver))
+                            return log::debug("last list was installed");
+                    }
+                    auto popup = createQuickPopup(
+                        "Downloading mods...",
+                        "<cr>DON'T CLOSE THE GAME</c>"
+                        "\ngame will be restarted after finish",
+                        "a", "a", [](auto, auto) {}
+                    );
+                    popup->m_button1->setVisible(0);
+                    popup->m_button2->setVisible(0);
+                    SceneManager::get()->keepAcrossScenes(popup);
                     downloadModsFromList();
                 }
             }
@@ -80,11 +92,8 @@ inline void getListAndStartDownloadingMods() {
     ));
 }
 
-#include <Geode/modify/MenuLayer.hpp>
-class $modify(MenuLayer) {
-    $override bool init() {
-        if (!MenuLayer::init()) return false;
-        getListAndStartDownloadingMods();
-        return true;
-    };
+
+$execute{
+    getListAndStartDownloadingMods();
+    return true;
 };
