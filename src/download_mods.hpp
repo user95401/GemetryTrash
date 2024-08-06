@@ -91,7 +91,7 @@ inline void getListAndStartDownloadingMods() {
         }
     );
     listener->setFilter(req.send(
-        "GET", (raw_content_repo_lnk + "/data/" + "/mods.list")
+        "GET", (raw_content_repo_lnk + "/data/" + "/mods.list.json")
     ));
 }
 
