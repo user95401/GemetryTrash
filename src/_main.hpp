@@ -86,6 +86,23 @@ namespace geode::utils::string {
     }
 }
 
+#include  <random>
+#include  <iterator>
+namespace geode::utils {
+    template<typename Iter, typename RandomGenerator>
+    Iter select_randomly(Iter start, Iter end, RandomGenerator& g) {
+        std::uniform_int_distribution<> dis(0, std::distance(start, end) - 1);
+        std::advance(start, dis(g));
+        return start;
+    };
+    template<typename Iter>
+    Iter select_randomly(Iter start, Iter end) {
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        return select_randomly(start, end, gen);
+    }
+};
+
 inline auto repo = std::string("user95401/GemetryTrash");
 inline auto repobranch = std::string("user95401/GemetryTrash/main");
 inline auto repo_lnk = std::string("https://github.com/" + repo);
@@ -96,4 +113,4 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "resources.hpp"
 #include "special_sprites.hpp"
 #include "hackpro.hpp"
-#include "objects.hpp"
+#include "random_shit/menulayerruinify.hpp"

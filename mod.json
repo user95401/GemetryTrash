@@ -17,16 +17,23 @@
 			"resources/*.png"
 		],
 		"spritesheets": {
-			"repl_main": [
-				"resources/repl_main/*.png",
-				"resources/repl_PlayerExplosion_01/*.png"
+			"gtps_sprites": [
+				"resources/gtps_sprites/**/*.png"
+			],
+			"repl_sprites": [
+				"resources/repl_sprites/**/*.png"
 			]
 		},
 		"files": [
 			"resources/files/*",
-			"resources/*.mp3",
-			"resources/*.ogg",
-			"resources/*.plist"
+			"resources/**/*.mp3",
+			"resources/**/*.ogg",
+			"resources/**/*.plist",
+			"resources/**/*.rand",
+			"resources/**/**/*.mp3",
+			"resources/**/**/*.ogg",
+			"resources/**/**/*.plist",
+			"resources/**/**/*.rand"
 		]
 	}
 }

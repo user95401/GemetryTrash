@@ -29,3 +29,55 @@ class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
         return CCSpriteFrameCache::addSpriteFramesWithFile(pszPlist);
     }
 };
+
+#include <Geode/modify/CCFileUtils.hpp>
+class $modify(CCFileUtilsExt, CCFileUtils) {
+    static auto updateFilePathViaRandFeature(fs::path path) {
+        auto mod_resources = Mod::get()->getResourcesDir();
+        auto name = (fs::path(path).filename()).replace_extension("");
+        auto rand_mark = (mod_resources / name).string() + ".rand";
+        if (fs::exists(rand_mark)) {
+            auto rand_glob = fs::glob::glob((mod_resources / name).string() + "_rand*");
+            if (rand_glob.size() > 0) {
+                return *select_randomly(rand_glob.begin(), rand_glob.end());
+            }
+        }
+        return path;
+    }
+    $override gd::string fullPathForFilename(const char* pszFileName, bool unkBoolean) {
+        auto path = fs::path(CCFileUtils::fullPathForFilename(pszFileName, unkBoolean).c_str());
+        path = updateFilePathViaRandFeature(path);
+        //log::debug("{}.path = {}", __FUNCTION__, path);
+        return path.string().c_str();
+    }
+};
+
+//play other songs
+#include <Geode/modify/FMODAudioEngine.hpp>
+class $modify(FMODAudioEngineExt, FMODAudioEngine) {
+    inline static bool dontPlayNextMusic = false;
+    $override void playMusic(gd::string strPath, bool shouldLoop, float fadeInTime, int channel) {
+        auto path = fs::path(strPath.c_str());
+        if (dontPlayNextMusic) {
+            dontPlayNextMusic = false;
+            return void();//log::debug("{}.dontPlayNextMusic ({} skip)", __FUNCTION__, path.filename());
+        }
+        path = CCFileUtilsExt::updateFilePathViaRandFeature(path);
+        //log::debug("{}.path = {}", __FUNCTION__, path);
+        return FMODAudioEngine::playMusic(path.string().c_str(), shouldLoop, fadeInTime, channel);
+    }
+    $override void playEffectAdvanced(gd::string strPath, float speed, float p2, float volume, float pitch, bool fastFourierTransform, bool reverb, int startMillis, int endMillis, int fadeIn, int fadeOut, bool loopEnabled, int p12, bool override, bool p14, int p15, int uniqueID, float minInterval, int sfxGroup) {
+        auto path = fs::path(strPath.c_str());
+        path = CCFileUtilsExt::updateFilePathViaRandFeature(path);
+        //log::debug("{}.path = {}", __FUNCTION__, path);
+        return FMODAudioEngine::playEffectAdvanced(path.string().c_str(), speed, p2, volume, pitch, fastFourierTransform, reverb, startMillis, endMillis, fadeIn, fadeOut, loopEnabled, p12, override, p14, p15, uniqueID, minInterval, sfxGroup);
+    }
+};
+//dont play other songs
+#include <Geode/modify/MenuLayer.hpp>
+class $modify(MenuLayer_resourcescpp, MenuLayer) {
+    $override bool init() {
+        FMODAudioEngineExt::dontPlayNextMusic = true;
+        return MenuLayer::init();
+    }
+};

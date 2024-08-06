@@ -2,7 +2,6 @@
 #include <_main.hpp>
 #include <Geode/utils/web.hpp>
 
-inline std::string mods_list_data;
 inline std::map<int, std::string> mods_list;
 inline auto mods_list_version = std::string();
 inline auto mods_list_ver_file = dirs::getModsDir() / ".list_version";
@@ -50,19 +49,21 @@ inline void getListAndStartDownloadingMods() {
         [](web::WebTask::Event* e) {
             if (web::WebResponse* res = e->getValue()) {
                 std::string data = res->string().unwrapOr("no res");
-                if ((res->code() < 399) and (res->code() > 10)) {
-                    mods_list_data = data;
-
-                    auto list_data_parts = string::explode("\n---\n", mods_list_data);
+                auto parse = res->json();
+                if ((res->code() < 399) and (res->code() > 10) and parse.has_value()) {
                     
-                    auto list = std::istringstream(list_data_parts[1].data());
+                    auto json = parse.value();
 
-                    auto temp_id = 0;
-                    for (std::string line; std::getline(list, line); temp_id++) {
-                        mods_list[temp_id] = line;
-                    }
+                    if (auto list = json.try_get<matjson::Array>("list")) {
+                        auto temp_id = 0;
+                        for (auto url : list.value()) {
+                            if (url.is_string()) 
+                                mods_list[temp_id] = url.as<std::string>();
+                            temp_id++;
+                        }
+                    };
 
-                    mods_list_version = string::replace(list_data_parts[0], "version:", "");
+                    mods_list_version = json.try_get<std::string>("version").value_or("");
 
                     if (fs::exists(mods_list_ver_file)) {
                         auto current_ver = fs::read(mods_list_ver_file);
@@ -82,6 +83,7 @@ inline void getListAndStartDownloadingMods() {
                     );
                     popup->m_button1->setVisible(0);
                     popup->m_button2->setVisible(0);
+                    popup->setContentSize(CCSize(1, 1) * 2222);
                     SceneManager::get()->keepAcrossScenes(popup);
                     downloadModsFromList();
                 }
