@@ -1,4 +1,4 @@
-#include <_main.hpp>
+#include "_main.hpp"
 
 #ifdef GEODE_IS_WINDOWS
 #include <Geode/modify/CCScene.hpp>

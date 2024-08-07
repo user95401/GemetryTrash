@@ -5,6 +5,8 @@ using namespace geode::prelude;
 
 #include <regex>
 
+#include <_fs.hpp>
+
 //lol
 #define SETTING(type, key_name) Mod::get()->getSettingValue<type>(key_name)
 
@@ -24,8 +26,6 @@ template<typename T, typename U> constexpr size_t OFFSET_BY_MEMBER(U T::* member
 	} c; \
 	return c.get(reinterpret_cast<FriendeeClass__*>(v)); \
 }(value)
-
-#include <_fs.hpp>
 
 namespace geode::cocos {
     inline std::string frameName(CCNode* node) {
@@ -108,6 +108,7 @@ inline auto repobranch = std::string("user95401/GemetryTrash/main");
 inline auto repo_lnk = std::string("https://github.com/" + repo);
 inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.com/" + repobranch);
 
+#include "settings.hpp"
 #include "download_mods.hpp"
 #include "links.hpp"
 #include "resources.hpp"
