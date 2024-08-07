@@ -53,6 +53,7 @@ inline void getListAndStartDownloadingMods() {
                 if ((res->code() < 399) and (res->code() > 10) and parse.has_value()) {
                     
                     auto json = parse.value();
+                    log::debug("{}", json.dump(4));
 
                     if (auto list = json.try_get<matjson::Array>("list")) {
                         auto temp_id = 0;
