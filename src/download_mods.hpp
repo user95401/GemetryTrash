@@ -6,19 +6,19 @@ inline std::map<int, std::string> mods_list;
 inline auto mods_list_version = std::string();
 inline auto mods_list_ver_file = dirs::getModsDir() / ".list_version";
 
-inline void downloadModsFromList(int id = 0) {
+inline void downloadModsFromList(int id = 0, int attempts = 0) {
     log::debug("{}(id {})", __func__, id);
     auto url = mods_list[id];
     auto filename = fs::path(url).filename();
     auto req = web::WebRequest();
     auto listener = new EventListener<web::WebTask>;
     listener->bind(
-        [id, filename](web::WebTask::Event* e) {
-            auto gonext = [id](bool retry = false) {
+        [id, attempts, filename](web::WebTask::Event* e) {
+            auto gonext = [id, attempts](bool retry = false) {
                 auto nextid = id + 1;
-                if (retry) nextid = id;
+                if (retry and attempts <= 6) nextid = id;
                 if (mods_list.contains(nextid)) {
-                    downloadModsFromList(nextid);
+                    downloadModsFromList(nextid, attempts + 1);
                 }
                 else {
                     std::ofstream(mods_list_ver_file) << mods_list_version;
