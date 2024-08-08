@@ -37,5 +37,43 @@
 			"resources/**/**/*.plist",
 			"resources/**/**/*.rand"
 		]
+	},
+	"settings": {
+		"No Button Anim": {
+			"name": "No Button Anim",
+			"description": "remove effect when btn get activated",
+			"type": "bool",
+			"default": false
+		},
+		"No Button UDare Dialog": {
+			"name": "No Button UDare Dialog",
+			"description": "remove button dialog appearance",
+			"type": "bool",
+			"default": false
+		},
+		"No Button Click Sound": {
+			"name": "No Button Click Sound",
+			"description": "remove sound on btn click",
+			"type": "bool",
+			"default": false
+		},
+		"No Menu Game BG Pulse": {
+			"name": "No Menu Game BG Pulse",
+			"description": "No Menu Game BG Pulse",
+			"type": "bool",
+			"default": false
+		},
+		"No New Explode in Menu Game": {
+			"name": "No New Explode in Menu Game",
+			"description": "remove new explode effect for players in main menu",
+			"type": "bool",
+			"default": false
+		},
+		"No Players Destroyed Counter": {
+			"name": "No Players Destroyed Counter",
+			"description": "remove new explode effect for players in main menu",
+			"type": "bool",
+			"default": false
+		}
 	}
 }

@@ -10,7 +10,8 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
     $override void update(float p0) {
         MenuGameLayer::update(p0);
         //pulse
-        {
+        if (SETTING(bool, "No Menu Game BG Pulse")) void();
+        else {
             auto fmod = FMODAudioEngine::sharedEngine();
             if (not fmod->m_metering) fmod->enableMetering();
             auto pulse = (fmod->m_pulse1 + fmod->m_pulse2 + fmod->m_pulse3) / 3;
@@ -27,10 +28,11 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
         );
     }
     $override void destroyPlayer() {
-        this->m_playerObject->playDeathEffect();
+        if (SETTING(bool, "No New Explode in Menu Game")) void();
+        else this->m_playerObject->playDeathEffect();
         MenuGameLayer::destroyPlayer();
-        //counter
-        {
+        if (SETTING(bool, "No Players Destroyed Counter")) void();
+        else {
             auto counter_layer = typeinfo_cast<CCLayer*>(this->getChildByIDRecursive(
                 "counter_layer"
             ));
@@ -132,30 +134,6 @@ class $modify(MenuLayerExt, MenuLayer) {
             flyinAmogus_001->setID("flyinAmogus_002");
             flyinAmogus_002->setAnchorPoint(CCPointZero);
             flyinAmogus_001->addChild(flyinAmogus_002);
-        };
-
-        //warn lbl 
-        {
-            //bg
-            CCScale9Sprite* warnlblbg = CCScale9Sprite::create("square02_001.png");
-            warnlblbg->setID("warnlblbg");
-            if (!seenWarn) { seenWarn = true; centerNode->addChild(warnlblbg); }
-            warnlblbg->setPositionY(-68.f);
-            warnlblbg->setOpacity(120);
-            //warn lbl
-            auto warnlbl = CCLabelTTF::create("Game may contain explicit lyrics and offensive jokes - don't take it seriously!\n Also its buggy shit. Have a good game, man, thanks for playin <3",
-                "Comic Sans MS", 10.f);
-            warnlbl->setID("warnlbl");
-            if (rand() % 3 == 1) warnlbl->setString("enTa kyky, a Tbl, gaBau 6e3 6\n cnc 4To 3aJleTeJl, Hy Tbl u curMa");
-            warnlbl->setScale(2.f);
-            warnlbl->setAnchorPoint(CCPoint(-0.015f, -0.15f));
-            //more bg setups when
-            warnlblbg->setContentSize({ warnlbl->getContentSize().width * 2 + 30, warnlbl->getContentSize().height * 2 + 20 });
-            warnlblbg->setScale(0.5f);
-            warnlblbg->addChild(warnlbl);
-            //fadeanim
-            warnlblbg->runAction(CCSequence::create(CCDelayTime::create(10.0f), CCFadeTo::create(0.5f, 0), nullptr));
-            warnlbl->runAction(CCSequence::create(CCDelayTime::create(10.0f), CCFadeTo::create(0.5f, 0), nullptr));
         };
 
         return rtn;
