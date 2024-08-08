@@ -86,8 +86,9 @@ inline web::WebTask web_send_replace(web::WebRequest* __this, std::string_view m
 		std::regex("www.boomlings.com\\/database"),
 		server.string()
 	);
+	GEODE_ANDROID(log::error("{}.url = {}", __FUNCTION__, url));
 	log::debug("{}.url = {}", __FUNCTION__, url);
-	return __this->send(method, std::string_view(url));
+	return __this->send(method, url);
 };
 
 $execute{
