@@ -14,8 +14,9 @@ inline void downloadModsFromList(int id = 0) {
     auto listener = new EventListener<web::WebTask>;
     listener->bind(
         [id, filename](web::WebTask::Event* e) {
-            auto gonext = [id]() {
+            auto gonext = [id](bool retry = false) {
                 auto nextid = id + 1;
+                if (retry) nextid = id;
                 if (mods_list.contains(nextid)) {
                     downloadModsFromList(nextid);
                 }
@@ -28,12 +29,23 @@ inline void downloadModsFromList(int id = 0) {
                 std::string data = res->string().unwrapOr("no res");
                 if ((res->code() < 399) and (res->code() > 10)) {
                     res->into(dirs::getModsDir() / filename);
-                    log::info("mod {}({}) installed!", filename, id);
+                    auto msg = fmt::format("{}\n installed! id: {}", filename, id);
+                    AchievementNotifier::sharedState()->notifyAchievement(
+                        "", msg.data(), "GJ_infoIcon_001.png", 1);
+                    AchievementNotifier::sharedState()->showNextAchievement();
+                    log::info("{}", string::replace(msg, "\n", ""));
                     return gonext();
                 }
                 else {
-                    log::error("failed to install {}({}): {}", filename, id, res->string().error_or(data));
-                    return gonext();
+                    auto msg = fmt::format(
+                        "{} \nFail! Error: {}", 
+                        filename, res->string().error_or(data)
+                    );
+                    AchievementNotifier::sharedState()->notifyAchievement(
+                        "", msg.data(), "miniSkull_001.png", 1);
+                    AchievementNotifier::sharedState()->showNextAchievement();
+                    log::error("{}", string::replace(msg, "\n", ""));
+                    return gonext(true);
                 }
             }
         }
