@@ -12,6 +12,8 @@ class $modify(CCMenuItemSpriteSoundExt, CCMenuItemSprite) {
 #include <Geode/modify/CCMenuItem.hpp>
 class $modify(CCMenuItemAnimExt, CCMenuItem) {
     $override void activate() {
+        GEODE_ANDROID(return CCMenuItem::activate());
+
         CCMenu* menu = typeinfo_cast<CCMenu*>(this->getParent());
         if (not menu) return CCMenuItem::activate();
 

@@ -1,7 +1,7 @@
 {
-  "version": "v2-list.1",
+  "version": "v2-list.beta1",
   "list": [
-    "LATER://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode",
+    "https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode",
     "https://raw.githubusercontent.com/user95401/GemetryTrash/main/data/mods/user95401.mainlevelseditor.geode",
     "https://github.com/MathieuAR-GDPSFH/Gauntlets-Position-Fix/releases/latest/download/jecket.gauntlets_position_fix.geode",
     "https://github.com/user95401/UnpublishedMods/releases/latest/download/user95401.unpublished_mods.geode",
