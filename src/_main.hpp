@@ -103,6 +103,11 @@ namespace geode::utils {
     }
 };
 
+#ifdef GEODE_IS_ANDROID
+#define debug error
+#endif // GEODE_IS_ANDROID
+
+
 inline auto repo = std::string("user95401/GemetryTrash");
 inline auto repobranch = std::string("user95401/GemetryTrash/main");
 inline auto repo_lnk = std::string("https://github.com/" + repo);

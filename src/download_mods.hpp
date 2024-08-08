@@ -71,10 +71,7 @@ inline void getListAndStartDownloadingMods() {
                         auto temp_id = 0;
                         for (auto url : list.value()) {
                             mods_list[temp_id] = url.as_string();
-                            GEODE_ANDROID(
-                                log::error("debug: mods_list[{}] = ", temp_id, mods_list[temp_id])
-                            );
-                            log::debug("debug: mods_list[{}] = ", temp_id, mods_list[temp_id]);
+                            log::debug("debug: mods_list[{}] = {}", temp_id, mods_list[temp_id]);
                             temp_id++;
                         }
                     };
