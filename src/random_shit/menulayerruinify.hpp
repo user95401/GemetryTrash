@@ -29,7 +29,7 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
     }
     $override void destroyPlayer() {
         if (SETTING(bool, "No New Explode in Menu Game")) void();
-        else this->m_playerObject->playDeathEffect();
+        GEODE_WINDOWS(else this->m_playerObject->playDeathEffect());
         MenuGameLayer::destroyPlayer();
         if (SETTING(bool, "No Players Destroyed Counter")) void();
         else {
