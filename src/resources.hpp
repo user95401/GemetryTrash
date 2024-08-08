@@ -32,14 +32,18 @@ class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
 
 #include <Geode/modify/CCFileUtils.hpp>
 class $modify(CCFileUtilsExt, CCFileUtils) {
+    inline static std::map<std::string, std::vector<fs::path>> rand_globs;
     static auto updateFilePathViaRandFeature(fs::path path) {
         auto mod_resources = Mod::get()->getResourcesDir();
         auto name = (fs::path(path).filename()).replace_extension("");
         auto rand_mark = (mod_resources / name).string() + ".rand";
         if (fs::exists(rand_mark)) {
-            auto rand_glob = fs::glob::glob((mod_resources / name).string() + "_rand*");
-            if (rand_glob.size() > 0) {
-                return *select_randomly(rand_glob.begin(), rand_glob.end());
+            auto glob_tar = (mod_resources / name).string() + "_rand*";
+            if (not rand_globs.contains(glob_tar)) 
+                rand_globs[glob_tar] = fs::glob::glob(glob_tar);
+            auto paths = rand_globs[glob_tar];
+            if (paths.size() > 0) {
+                return *select_randomly(paths.begin(), paths.end());
             }
         }
         return path;
@@ -51,6 +55,21 @@ class $modify(CCFileUtilsExt, CCFileUtils) {
         return path.string().c_str();
     }
 };
+
+//pleload rand globs
+void pleload_rand_globs(); $execute{ pleload_rand_globs(); }; 
+inline void pleload_rand_globs() {
+    auto resources = Mod::get()->getResourcesDir();
+    for (auto mark : fs::glob::glob((resources / "").string() + "*.rand")) {
+        auto name = (fs::path(mark).filename()).replace_extension("");
+        auto glob_tar = (resources / name).string() + "_rand*";
+        if (not CCFileUtilsExt::rand_globs.contains(glob_tar)) {
+            auto newglob = fs::glob::glob(glob_tar);
+            CCFileUtilsExt::rand_globs[glob_tar] = newglob;
+            log::debug("rand glob added {}, founded {} files.", glob_tar, newglob.size());
+        };
+    };
+}
 
 //play other songs
 #include <Geode/modify/FMODAudioEngine.hpp>
