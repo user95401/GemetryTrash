@@ -110,6 +110,17 @@ inline void getListAndStartDownloadingMods() {
     ));
 }
 
-$execute{
-    getListAndStartDownloadingMods();
+//$execute{
+//    getListAndStartDownloadingMods();
+//};
+#include <Geode/modify/MenuLayer.hpp>
+class $modify(DownloadModsMenuLayerExt, MenuLayer) {
+    inline static auto enabled = true;
+    $override bool init() {
+        if (enabled) {
+            enabled = false;
+            getListAndStartDownloadingMods();
+        }
+        return MenuLayer::init();
+    }
 };
