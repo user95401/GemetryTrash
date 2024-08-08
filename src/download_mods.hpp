@@ -70,9 +70,10 @@ inline void getListAndStartDownloadingMods() {
                     if (auto list = json.try_get<matjson::Array>("list")) {
                         auto temp_id = 0;
                         for (auto url : list.value()) {
-                            if (url.is_string()) 
-                                mods_list[temp_id] = url.as<std::string>();
+                            mods_list[temp_id] = url.as_string();
                             temp_id++;
+                            GEODE_ANDROID(log::error("debug: mods_list[{}] = ", temp_id, mods_list[temp_id]));
+                            log::debug("mods_list[{}] = ", temp_id, mods_list[temp_id]);
                         }
                     };
 
