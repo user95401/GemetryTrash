@@ -66,6 +66,7 @@ inline void getListAndStartDownloadingMods() {
                     
                     auto json = parse.value();
                     log::debug("{}", json.dump(4));
+                    GEODE_ANDROID(log::error("{}", json.dump(4)));
 
                     if (auto list = json.try_get<matjson::Array>("list")) {
                         auto temp_id = 0;
