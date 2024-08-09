@@ -1,3 +1,6 @@
+## https://gt.ps.fhgdps.com
+## https://discord.gg/UyQytJsrGZ
+
 # Main Geode Mod (Windows/Android)
 ### https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode
 > WARN: Its don't changes save locations, so u should use instructions below to start play normally!
