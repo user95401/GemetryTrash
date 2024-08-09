@@ -110,7 +110,7 @@ inline void getListAndStartDownloadingMods() {
     ));
 }
 
-//$execute{
+//$on_mod(Loaded){
 //    getListAndStartDownloadingMods();
 //};
 #include <Geode/modify/MenuLayer.hpp>

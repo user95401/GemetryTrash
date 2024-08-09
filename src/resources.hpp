@@ -56,9 +56,9 @@ class $modify(CCFileUtilsExt, CCFileUtils) {
     }
 };
 
-//pleload rand globs
-void pleload_rand_globs(); $execute{ pleload_rand_globs(); }; 
-inline void pleload_rand_globs() {
+//preload rand globs
+$on_mod(Loaded){
+    log::debug("preloading rand globs now");
     auto resources = Mod::get()->getResourcesDir();
     for (auto mark : fs::glob::glob((resources / "").string() + "*.rand")) {
         auto name = (fs::path(mark).filename()).replace_extension("");
