@@ -1,23 +1,21 @@
-# GemetryTrash
-This is where she makes a mod.
+# Main Geode Mod (Windows/Android)
+### https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode
+> WARN: Its don't changes save locations, so u should use instructions below to start play normally!
 
-<img src="logo.png" width="150" alt="the mod's logo" />
+`   `
+# Windows Game Archive
+### https://mega.nz/file/d88CgDhb#LWFs7ly3J87fe4coBPzSZtWsUnTGKSehOy5VPaZiQGU
+# Custom Geode Launcher (Android)
+### https://mega.nz/file/5w0SRKbD#HkixtbyHiq2yosE7JI21iR7nuVRJmJ1eZd3mDMt-hM0
+`   `
+# How To Install On Windows:
+- download pc game by [this link](https://mega.nz/file/I09lACZT#tbC-FoW0853oIP2fVtqT58LDzfTWhpfKaDvwviff2wM)
+- unarchive it
+Thats all. You can made shortcut and stuff... **Main game executable file is a __GemetryTrash.exe__**
 
-*Update logo.png to change your mod's icon (please)*
-
-## Getting started
-We recommend heading over to [the getting started section on our docs](https://docs.geode-sdk.org/getting-started/) for useful info on what to do next.
-
-## Build instructions
-For more info, see [our docs](https://docs.geode-sdk.org/getting-started/create-mod#build)
-```sh
-# Assuming you have the Geode CLI set up already
-geode build
-```
-
-# Resources
-* [Geode SDK Documentation](https://docs.geode-sdk.org/)
-* [Geode SDK Source Code](https://github.com/geode-sdk/geode/)
-* [Geode CLI](https://github.com/geode-sdk/cli)
-* [Bindings](https://github.com/geode-sdk/bindings/)
-* [Dev Tools](https://github.com/geode-sdk/DevTools)
+# How To Install On Android:
+- download my custom geode launcher version by [this link](https://mega.nz/file/d88CgDhb#LWFs7ly3J87fe4coBPzSZtWsUnTGKSehOy5VPaZiQGU)
+- install apk package
+- run installed launcher
+- download main mod by [this link](https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode) and install it manually.
+Thats all. Now you can launch game idk.
