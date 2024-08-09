@@ -33,7 +33,7 @@ inline void loadServerInf() {
 	));
 }
 
-$execute{
+$on_mod(Loaded){
 	loadServerInf();
 }
 
@@ -59,7 +59,7 @@ inline void loadLinks() {
 	));
 }
 
-$execute{
+$on_mod(Loaded){
 	loadLinks();
 }
 
@@ -91,16 +91,18 @@ inline web::WebTask web_send_replace(web::WebRequest* __this, std::string_view m
 	return __this->send(method, std::string_view(newUrl.data()));
 };
 
-$execute{
-	if (auto hook = Mod::get()->hook(
+$on_mod(Loaded){
+	auto hook = Mod::get()->hook(
 		reinterpret_cast<void*>(
 			geode::addresser::getNonVirtual(&web::WebRequest::send)
 		),
 		&web_send_replace,
 		"web::WebRequest::send",
 		tulip::hook::TulipConvention::Thiscall
-	)) void(); else log::error("hook failed: {}", hook.error_or("no error..."));
-}
+	);
+	if (hook.has_error()) log::error("hook failed: {}", hook.error_or("no error..."));
+	if (hook.has_value()) log::debug("{}", hook.value()->getRuntimeInfo().dump(4));
+};
 
 //url open
 
