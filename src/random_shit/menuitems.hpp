@@ -21,11 +21,14 @@ class $modify(CCMenuItemDialogExt, CCMenuItem) {
     $override void activate() {
         if (SETTING(bool, "No Button UDare Dialog")) return CCMenuItem::activate();
         srand(time(0));
-        if ((rand() % 100 > 5) or findDataNode(this, "hasDialog")) {
+        if ((rand() % 100 > 3) or findDataNode(this, "hasDialog")) {
             return CCMenuItem::activate();
         }
         if (auto spriteitem = typeinfo_cast<CCMenuItemSpriteExtra*>(this)) {
             spriteitem->addChild(cocos::createDataNode("hasDialog"));
+            if (auto itemimage = typeinfo_cast<CCNode*>(spriteitem->getNormalImage())) {
+                DialogLayerExt::DialogIcon = itemimage;
+            };
             auto* dialog = DialogLayer::createDialogLayer(
                 DialogObject::create(
                     "Button",
@@ -40,11 +43,6 @@ class $modify(CCMenuItemDialogExt, CCMenuItem) {
                 };
             dialog->animateInRandomSide();
             dialog->addToMainScene();
-            if (auto icon = typeinfo_cast<CCSprite*>(cocos::getChildBySpriteName(dialog->m_mainLayer, "dialogIcon_005.png"))) {
-                if (auto itemimage = typeinfo_cast<CCSprite*>(spriteitem->getNormalImage())) {
-                    icon->setDisplayFrame(itemimage->displayFrame());
-                }
-            };
         };
     }
 };

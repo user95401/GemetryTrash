@@ -8,24 +8,26 @@
 	},
 	"id": "user95401.gemetry_trash",
 	"name": "Gemetry Trash",
-	"version": "v2.0.0",
+	"version": "v3.0.0",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
 	"resources": {
 		"sprites": [
-			"resources/*.png"
+			"resources/sprites/*.png",
+			"resources/sprites/**/*.png"
 		],
 		"spritesheets": {
 			"gtps_spritesheet": [
-				"resources/gtps_spritesheet/**/*.png"
+				"resources/spritesheets/gtps_spritesheet/**/*.png"
 			],
 			"repl_spritesheet": [
-				"resources/repl_spritesheet/**/*.png"
+				"resources/spritesheets/repl_spritesheet/**/*.png"
 			]
 		},
 		"files": [
 			"resources/files/*",
+			"resources/files/**/*",
 			"resources/**/*.mpg",
 			"resources/**/*.mp3",
 			"resources/**/*.ogg",

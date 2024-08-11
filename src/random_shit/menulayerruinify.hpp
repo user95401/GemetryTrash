@@ -75,8 +75,23 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
 
 #include <Geode/modify/MenuLayer.hpp>
 class $modify(MenuLayerExt, MenuLayer) {
+    void putGameInScroll(float) {
+        MenuGameLayer* game = nullptr;
+        auto game_node = this->getChildByIDRecursive("main-menu-bg");
+        if (auto game = typeinfo_cast<MenuGameLayer*>(game_node)) {
+            game->removeFromParentAndCleanup(0);
+            auto scroll = ScrollLayer::create(game->getContentSize());
+            scroll->m_cutContent = false;
+            scroll->m_peekLimitBottom = 25.f;
+            scroll->m_contentLayer->addChild(game);
+            scroll->m_contentLayer->setContentSize(game->getContentSize());
+            this->addChild(scroll, -1);
+        }
+    }
     $override bool init() {
         srand(time(0)); //bool(rand() % 2)
+
+        this->scheduleOnce(schedule_selector(MenuLayerExt::putGameInScroll), 0.1f);
 
         //rand bg
         auto background = rand() % 60;
@@ -99,18 +114,6 @@ class $modify(MenuLayerExt, MenuLayer) {
             node->setVisible(0);
         if (auto node = this->getChildByIDRecursive("more-games-button"))
             node->setVisible(0);
-
-        MenuGameLayer* game = nullptr;
-        auto game_node = this->getChildByIDRecursive("main-menu-bg");
-        if (auto game = typeinfo_cast<MenuGameLayer*>(game_node)) {
-            game->removeFromParentAndCleanup(0);
-            auto scroll = ScrollLayer::create(game->getContentSize());
-            scroll->m_cutContent = false;
-            scroll->m_peekLimitBottom = 25.f;
-            scroll->m_contentLayer->addChild(game);
-            scroll->m_contentLayer->setContentSize(game->getContentSize());
-            this->addChild(scroll, -1);
-        }
 
         //centerNode
         CCNode* centerNode = CCNode::create();
