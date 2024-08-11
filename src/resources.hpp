@@ -83,13 +83,6 @@ class $modify(FMODAudioEngineExt, FMODAudioEngine) {
         }
         path = CCFileUtilsExt::updateFilePathViaRandFeature(path);
         //log::debug("{}.path = {}", __FUNCTION__, path);
-        if (auto GJ_noteIcon_001 = CCSprite::createWithSpriteFrameName("GJ_noteIcon_001.png")) {
-            auto nowPlayin = Notification::create(
-                (path.filename()).replace_extension("").string(),
-                GJ_noteIcon_001
-            );
-            nowPlayin->show();
-        };
         return FMODAudioEngine::playMusic(path.string().c_str(), shouldLoop, fadeInTime, channel);
     }
     $override void playEffectAdvanced(gd::string strPath, float speed, float p2, float volume, float pitch, bool fastFourierTransform, bool reverb, int startMillis, int endMillis, int fadeIn, int fadeOut, bool loopEnabled, int p12, bool override, bool p14, int p15, int uniqueID, float minInterval, int sfxGroup) {
