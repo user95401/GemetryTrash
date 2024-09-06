@@ -10,5 +10,5 @@ Thats all. You can made shortcut and stuff... **Main game executable file is a _
 - download main mod by [this link](https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode) and install it manually.
 Thats all. Now you can launch game idk.
 <br><br><br><br>
-### https://gt.ps.fhgdps.com
+### https://gtps.bccst.ru
 ### https://discord.gg/UyQytJsrGZ
