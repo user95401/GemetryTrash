@@ -20,7 +20,7 @@ inline void loadServerInf() {
 			if (web::WebResponse* res = e->getValue()) {
 				std::string data = res->string().unwrapOr("no res");
 				if ((res->code() < 399) and (res->code() > 10)) {
-					server = data;
+					server = std::regex_replace(data, std::regex("\\s"), "");
 					log::debug("server = {}", server);
 				}
 				else {
