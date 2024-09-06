@@ -13,5 +13,5 @@ Thats all. You can made shortcut and stuff... **Main game executable file is a _
 
 Thats all. Now you can launch game idk.
 <br><br>
-### https://gt.ps.fhgdps.com
+### https://gtps.bccst.ru
 ### https://discord.gg/UyQytJsrGZ
