@@ -56,10 +56,10 @@ class $modify(CCFileUtilsExt, CCFileUtils) {
         return path.string().c_str();
     }
     $override virtual unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long* pSize) {
-        log::debug("{}.pszFileName = {}", __FUNCTION__, pszFileName);
+        //log::debug("{}.pszFileName = {}", __FUNCTION__, pszFileName);
         if (string::contains(pszFileName, "ui/")) {
             auto myfp = Mod::get()->getResourcesDir() / string::replace(pszFileName, "ui/", "ui.");
-            log::debug("{}.myfp = {}", __FUNCTION__, myfp);
+            //log::debug("{}.myfp = {}", __FUNCTION__, myfp);
             if (cocos::fileExistsInSearchPaths(myfp.string().c_str())) {
                 pszFileName = myfp.string().c_str();
             }
