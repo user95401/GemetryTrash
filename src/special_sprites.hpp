@@ -8,10 +8,43 @@ class $modify(SpecialSprites, CCSprite) {
             auto fmod = FMODAudioEngine::sharedEngine();
             if (not fmod->m_metering) fmod->enableMetering();
             auto pulse = (fmod->m_pulse1 + fmod->m_pulse2 + fmod->m_pulse3) / 3;
-            sprite->setOpacity(pulse * 120.f);
+            if (fmod->getBackgroundMusicVolume() > 0) sprite->setOpacity(pulse * 120.f);
         }
     }
-    static CCSprite* createWithSpriteFrameName(const char* pszSpriteFrameName) {
+    void gradientColorSch(float) {
+        if (auto sprite = typeinfo_cast<CCSprite*>(this)) {
+            srand(time(0));
+            auto colorID = rand() % 23;
+            auto color = reinterpret_cast<LevelSelectLayer*>(sprite)->colorForPage(colorID);
+            sprite->runAction(CCTintTo::create(3.0f, color.r, color.g, color.b));
+        }
+    }
+    void tryCetupGradientColorSch(float) {
+        if (auto base_layer = typeinfo_cast<CCSprite*>(this)) {
+            if (ccc3BEqual(base_layer->getColor(), {0, 102, 255})) {
+                //color
+                srand(time(0));
+                auto colorID = rand() % 23;
+                auto color = reinterpret_cast<LevelSelectLayer*>(base_layer)->colorForPage(colorID);
+                //color layer
+                CCSprite* color_layer = CCSprite::create("GJ_gradientBG.png");
+                color_layer->setAnchorPoint(CCPointZero);
+                color_layer->setBlendFunc({ GL_ONE, GL_ONE });
+                color_layer->setColor(color);
+                color_layer->schedule(schedule_selector(SpecialSprites::gradientColorSch), 3.0f);
+                base_layer->addChild(color_layer, 0, colorID);
+            };
+        }
+    };
+    $override static CCSprite* create(const char* pszFileName) {
+        if (string::contains(pszFileName, "GJ_gradientBG")) {
+            auto base_layer = CCSprite::create(pszFileName);
+            base_layer->scheduleOnce(schedule_selector(SpecialSprites::tryCetupGradientColorSch), 0.f);
+            return base_layer;
+        }
+        return CCSprite::create(pszFileName);
+    }
+    $override static CCSprite* createWithSpriteFrameName(const char* pszSpriteFrameName) {
         auto name = std::string(pszSpriteFrameName);
         if (string::contains(name, "robtoplogo_small.png")) {
             //label
@@ -27,9 +60,9 @@ class $modify(SpecialSprites, CCSprite) {
         }
         if (string::contains(name, "RobTopLogoBig_001.png")) {
             //label
-            CCLabelBMFont* label = CCLabelBMFont::create("user666's original", "gjFont06.fnt");
+            CCLabelBMFont* label = CCLabelBMFont::create("user95401's original", "gjFont06.fnt");
             label->setAlignment(kCCTextAlignmentCenter);
-            label->setAnchorPoint(CCPoint());
+            label->setAnchorPoint(CCPointZero);
             //blankSprite
             CCSprite* blankSprite = CCSprite::create();
             blankSprite->addChild(label);

@@ -91,12 +91,6 @@ class $modify(MenuLayerDialogs, MenuLayer) {
             arr->addObject(DialogObject::create("You", "Kiss you, kiss you, kiss you again", 60, 1.f, 1, ccWHITE));
             dailogs.push_back(arr);
         };
-        //murder drones ep8
-        {
-            CCArray* arr = CCArray::create();
-            arr->addObject(DialogObject::create("Glubfub", "murder drones ep8 soon!", 18, 1.f, 1, ccWHITE));
-            dailogs.push_back(arr);
-        }
         //days
         {
             CCArray* arr = CCArray::create();
