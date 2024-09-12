@@ -58,10 +58,10 @@ class $modify(CCFileUtilsExt, CCFileUtils) {
     $override virtual unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long* pSize) {
         //log::debug("{}.pszFileName = {}", __FUNCTION__, pszFileName);
         if (string::contains(pszFileName, "ui/")) {
-            auto myfp = Mod::get()->getResourcesDir() / string::replace(pszFileName, "ui/", "ui.");
+            auto myfp = Mod::get()->getID() + "/" + string::replace(pszFileName, "ui/", "ui.");
             //log::debug("{}.myfp = {}", __FUNCTION__, myfp);
-            if (cocos::fileExistsInSearchPaths(myfp.string().c_str())) {
-                pszFileName = myfp.string().c_str();
+            if (cocos::fileExistsInSearchPaths(myfp.c_str())) {
+                pszFileName = myfp.c_str();
             }
         }
         //log::debug("{}.path = {}", __FUNCTION__, path);
@@ -121,9 +121,9 @@ class $modify(GJGarageLayerNoRandSelector, GJGarageLayer) {
         if (!GJGarageLayer::init()) return 0;
 
         if (auto shards_menu = typeinfo_cast<CCMenu*>(this->getChildByIDRecursive("shards-menu"))) {
-            auto openupbtnimagelabel = CCLabelBMFont::create("Rand\nSel.", "goldFont.fnt");
-            openupbtnimagelabel->setAlignment(kCCTextAlignmentCenter);
-            auto openupbtnimage = geode::AccountButtonSprite::create(openupbtnimagelabel, AccountBaseColor::Gray);
+            auto openupbtnimage = CCLabelBMFont::create("Rand\nSel.", "goldFont.fnt");
+            openupbtnimage->setAlignment(kCCTextAlignmentCenter);
+            openupbtnimage->setScale(0.5f);
             auto openupbtn = CCMenuItemExt::createSpriteExtra(openupbtnimage,
                 [](auto) {
                     auto popup = FLAlertLayer::create(
@@ -258,7 +258,6 @@ class $modify(GJGarageLayerNoRandSelector, GJGarageLayer) {
 
                 }
             );
-            openupbtn->getNormalImage()->setScale(0.75f);
             shards_menu->addChild(openupbtn);
             shards_menu->updateLayout();
         }

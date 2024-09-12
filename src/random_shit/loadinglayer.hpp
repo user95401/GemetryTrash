@@ -17,11 +17,7 @@ class $modify(LoadingLayerExt, LoadingLayer) {
             if (new_bg) bg->setDisplayFrame(new_bg->displayFrame());
         }
 
-        int bgMusicChannel = 0;
-        FMODAudioEngine::get()->m_backgroundMusicChannel->getIndex(&bgMusicChannel);
-        FMODAudioEngine::get()->playMusic(
-            "loading_theme.mp3", 1, 0, bgMusicChannel
-        );
+        GameManager::get()->fadeInMusic("loading_theme.mp3");
 
         return rtn;
     }

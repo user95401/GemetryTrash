@@ -17,9 +17,10 @@ class $modify(SpecialSprites, CCSprite) {
             auto colorID = rand() % 23;
             auto color = reinterpret_cast<LevelSelectLayer*>(sprite)->colorForPage(colorID);
             sprite->runAction(CCTintTo::create(3.0f, color.r, color.g, color.b));
+            sprite->setTag(colorID);
         }
     }
-    void tryCetupGradientColorSch(float) {
+    void trySetupGradientColorSch(float) {
         if (auto base_layer = typeinfo_cast<CCSprite*>(this)) {
             if (ccc3BEqual(base_layer->getColor(), {0, 102, 255})) {
                 //color
@@ -31,6 +32,7 @@ class $modify(SpecialSprites, CCSprite) {
                 color_layer->setAnchorPoint(CCPointZero);
                 color_layer->setBlendFunc({ GL_ONE, GL_ONE });
                 color_layer->setColor(color);
+                color_layer->setOpacity(255);
                 color_layer->schedule(schedule_selector(SpecialSprites::gradientColorSch), 3.0f);
                 base_layer->addChild(color_layer, 0, colorID);
             };
@@ -39,7 +41,7 @@ class $modify(SpecialSprites, CCSprite) {
     $override static CCSprite* create(const char* pszFileName) {
         if (string::contains(pszFileName, "GJ_gradientBG")) {
             auto base_layer = CCSprite::create(pszFileName);
-            base_layer->scheduleOnce(schedule_selector(SpecialSprites::tryCetupGradientColorSch), 0.f);
+            base_layer->scheduleOnce(schedule_selector(SpecialSprites::trySetupGradientColorSch), 0.f);
             return base_layer;
         }
         return CCSprite::create(pszFileName);

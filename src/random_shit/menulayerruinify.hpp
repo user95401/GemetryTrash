@@ -115,6 +115,29 @@ class $modify(MenuLayerExt, MenuLayer) {
         if (auto node = this->getChildByIDRecursive("more-games-button"))
             node->setVisible(0);
 
+        if (auto title = this->getChildByIDRecursive("main-title")) {
+
+            auto pos = title->getPosition();
+            auto parent = title->getParent();
+
+            title->removeFromParentAndCleanup(0);
+
+            auto menu = CCMenu::createWithItem(CCMenuItemExt::createSpriteExtra(
+                title, [](auto) {
+                    CCApplication::get()->openURL(fmt::format("http://{}", server).c_str());
+                }
+            ));
+
+            auto btn = getChild<CCMenuItemSpriteExtra>(menu, 0); 
+            btn->setPosition(CCPointZero);
+            btn->m_colorEnabled = 1;
+            btn->m_animationEnabled = 0;
+
+            menu->setPosition(pos);
+            parent->addChild(menu);
+
+        }
+
         //centerNode
         CCNode* centerNode = CCNode::create();
         centerNode->setID("centerNode");

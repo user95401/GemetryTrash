@@ -127,4 +127,3 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "random_shit/menuitems.hpp"
 #include "random_shit/loadinglayer.hpp"
 #include "random_shit/secondfloor.hpp"
-#include "random_shit/gradientBackground.hpp"
