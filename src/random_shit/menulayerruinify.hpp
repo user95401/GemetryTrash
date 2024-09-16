@@ -5,6 +5,15 @@
 class $modify(MenuGameLayerExt, MenuGameLayer) {
     $override bool init() {
         auto init_result = MenuGameLayer::init();
+
+        auto pulsebg = CCSprite::create("game_bg_13_001.png");
+        pulsebg->setID("pulsebg");
+        pulsebg->setScale(1.250f);
+        pulsebg->setAnchorPoint({ 0.0f, 1.f });
+        pulsebg->setBlendFunc({ GL_ONE, GL_ONE });
+        pulsebg->setColor({0,0,0});
+        m_groundLayer->addChild(pulsebg, 10);
+
         return init_result;
     }
     $override void update(float p0) {
@@ -16,6 +25,9 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
             if (not fmod->m_metering) fmod->enableMetering();
             auto pulse = (fmod->m_pulse1 + fmod->m_pulse2 + fmod->m_pulse3) / 3;
             this->m_backgroundSprite->setOpacity(255.f - (pulse * 80.f));
+            if (auto pulsebg = typeinfo_cast<CCSprite*>(m_groundLayer->getChildByID("pulsebg"))) {
+                pulsebg->setColor(darken3B(this->m_backgroundSprite->getColor(), 255 - pulse * 60.f));
+            }
         }
     }
     $override void tryJump(float p0) {
@@ -75,23 +87,8 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
 
 #include <Geode/modify/MenuLayer.hpp>
 class $modify(MenuLayerExt, MenuLayer) {
-    void putGameInScroll(float) {
-        MenuGameLayer* game = nullptr;
-        auto game_node = this->getChildByIDRecursive("main-menu-bg");
-        if (auto game = typeinfo_cast<MenuGameLayer*>(game_node)) {
-            game->removeFromParentAndCleanup(0);
-            auto scroll = ScrollLayer::create(game->getContentSize());
-            scroll->m_cutContent = false;
-            scroll->m_peekLimitBottom = 25.f;
-            scroll->m_contentLayer->addChild(game);
-            scroll->m_contentLayer->setContentSize(game->getContentSize());
-            this->addChild(scroll, -1);
-        }
-    }
     $override bool init() {
         srand(time(0)); //bool(rand() % 2)
-
-        this->scheduleOnce(schedule_selector(MenuLayerExt::putGameInScroll), 0.1f);
 
         //rand bg
         auto background = rand() % 60;
@@ -123,8 +120,34 @@ class $modify(MenuLayerExt, MenuLayer) {
             title->removeFromParentAndCleanup(0);
 
             auto menu = CCMenu::createWithItem(CCMenuItemExt::createSpriteExtra(
-                title, [](auto) {
-                    CCApplication::get()->openURL(fmt::format("http://{}", server).c_str());
+                title, [this](auto) {
+                    MDPopup* mdpop = nullptr;
+                    mdpop = MDPopup::create(
+                        "Gemetry Trash", //reinterpret_cast<LoadingLayer*>(CCNode::create())->getLoadingString(),
+                        "The project by a mod maker. The server is anarchic - easy mod, easy rate.""\n"
+                        "\n"
+                        "Probably the first GDPS, that is almost entirely a geode mod, which includes both textures and modifications. Modifications are also completely random - maybe something cool, or maybe some shit.""\n"
+                        "\n"
+                        "The things:"   "\n"
+                        "- easy rate"   "\n"
+                        "- easy mod"    "\n"
+                        "- random explode sound, menu music"    "\n"
+                        "- some changes in textures"    "\n"
+                        "- kill counter in the main menu"   "\n"
+                        "- the main levels have been changed"   "\n"
+                        "- automatic updates"   "\n"
+                        "- many more little things" "\n"
+                        "\n"
+                        "https://discord.gg/UyQytJsrGZ" "\n"
+                        "https://gamejolt.com/games/GEOMETRY_TRASH_GDPS/776479/"    "\n"
+                        ,
+                        "Settings", "Credits",
+                        [this, mdpop](bool btn2) {
+                            if (not btn2) openSettingsPopup(getMod());
+                            else openSupportPopup(getMod());
+                        }
+                    );
+                    mdpop->show();
                 }
             ));
 
@@ -135,6 +158,25 @@ class $modify(MenuLayerExt, MenuLayer) {
 
             menu->setPosition(pos);
             parent->addChild(menu);
+
+            auto verLabel = CCLabelBMFont::create(
+                fmt::format(
+                    "Platform: {}" "\n"
+                    "Version: {}" "\n"
+                    "Geode: {}", 
+                    GEODE_PLATFORM_NAME,
+                    Mod::get()->getVersion().toString(),
+                    Mod::get()->getMetadata().getGeodeVersion()
+                ).c_str(), 
+                fmt::format("gjFont{:02d}.fnt", rand() % 60).c_str(),
+                266, kCCTextAlignmentLeft
+            );
+            verLabel->limitLabelWidth(76.f, 0.525f, 0.1f);
+            verLabel->setPosition(CCPoint(-218.f, -36.f));
+            verLabel->setAnchorPoint(CCPoint(0.f, 1.f));
+            verLabel->setColor(ccColor3B(77, 77, 77));
+            verLabel->setBlendFunc({ GL_ONE, GL_ONE });
+            menu->addChild(verLabel);
 
         }
 

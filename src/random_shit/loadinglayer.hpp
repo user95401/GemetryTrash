@@ -10,7 +10,7 @@ class $modify(LoadingLayerExt, LoadingLayer) {
 
         auto bg = typeinfo_cast<CCSprite*>(this->getChildByID("bg-texture"));
         if (bg) {
-            auto background = rand() % 60;
+            auto background = rand() % 59;
             auto new_bg = CCSprite::create(fmt::format(
                 "game_bg_{:02d}_001.png", background
             ).c_str());
