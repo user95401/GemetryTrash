@@ -1,10 +1,9 @@
 {
-  "version": "v2.7.0-list1",
+  "version": "v2.8.0-list1",
   "list": [
 
     "https://github.com/MathieuAR-GDPSFH/Gauntlets-Position-Fix/releases/latest/download/jecket.gauntlets_position_fix.geode",
 
-    "https://github.com/user95401/UnpublishedMods/releases/latest/download/user95401.unpublished_mods.geode",
     "https://github.com/Alphalaneous/HappyTextures/releases/latest/download/alphalaneous.happy_textures.geode",
     "https://github.com/geode-sdk/textureldr/releases/latest/download/geode.texture-loader.geode",
     "https://github.com/geode-sdk/NodeIDs/releases/latest/download/geode.node-ids.geode",

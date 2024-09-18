@@ -66,7 +66,7 @@ namespace geode::cocos {
     }
     inline auto findDataNode(CCNode* parent, std::string id) {
         auto node = typeinfo_cast<CCLabelBMFont*>(parent->getChildByIDRecursive(id));
-        if (node) log::warn("FAILED TO FIND DATA NODE! id: {}", id);
+        if (!node) log::warn("FAILED TO FIND DATA NODE! id: {}", id);
         return node;
     }
 };
@@ -101,6 +101,19 @@ namespace geode::utils {
         static std::mt19937 gen(rd());
         return select_randomly(start, end, gen);
     }
+    bool rndb(int variants = 2) {
+        auto varsVec = std::vector<bool>();
+        auto tempb = true;
+        auto tempvariants = variants;
+        while (tempvariants > 0) {
+            tempb = !tempb;
+            tempvariants = tempvariants - 1;
+            varsVec.push_back(tempb);
+        }
+        auto rtn = *select_randomly(varsVec.begin(), varsVec.end());
+        //log::debug("{}({}) = {} of {}", __func__, variants, rtn, varsVec);
+        return rtn;
+    }
 };
 
 #ifdef GEODE_IS_ANDROID
@@ -127,3 +140,5 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "random_shit/menulayerruinify.hpp"
 #include "random_shit/menuitems.hpp"
 #include "random_shit/loadinglayer.hpp"
+#include "random_shit/secondfloor.hpp"
+#include "random_shit/breakplatshiprot.hpp"

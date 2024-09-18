@@ -16,6 +16,7 @@ class mouse_particle : public CCParticleSystemQuad {
 public:
     static inline bool created = false;
     static inline Ref<CCParticleSystemQuad> shared_ref;
+    static inline Ref<CCMoveTo> moveactref = CCMoveTo::create(0.001f, { -10, -10 });
     static void create() {
         if (created) return;
         created = true;
@@ -23,20 +24,25 @@ public:
                 "200a-1a0.54a0.94a-1a90a180a0a20a1a1a0a0a0a0a0a0a1a2a0a0a0.211765a0.1a0.207843a0.1a0.207843a0.1a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a10a0a0a0a1a1a1a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0"
         , CCParticleSystemQuad::create(), 0));
         shared_ref->setID("mouse_particle"_spr);
-        shared_ref->_setZOrder(INT_MAX);
         shared_ref->schedule(schedule_selector(mouse_particle::sch));
         SceneManager::get()->keepAcrossScenes(shared_ref);
     }
     void sch(float) {
-        shared_ref->runAction(CCRepeatForever::create(CCMoveTo::create(0.000f, getMousePos())));
+        moveactref->initWithDuration(moveactref->getDuration(), getMousePos());
+        shared_ref->runAction(moveactref);
         auto hide = false;
-        if (auto game = GameManager::get()->m_gameLayer) hide = game->isRunning();
+        auto order = getChild(shared_ref->getParent(), -1)->getZOrder();
+        if (auto game = GameManager::get()->m_gameLayer) {
+            hide = game->isRunning();
+            order = 0;
+        }
         hide ? shared_ref->stopSystem() : shared_ref->resumeSystem();
+        shared_ref->setZOrder(order);
     }
     #include <Geode/modify/CCScene.hpp>
     class $modify(MouseParticleExt, MenuLayer) {
         $override bool init() {
-            mouse_particle::create();
+            if (SETTING(bool, "Add Cursor Particles")) mouse_particle::create();
             return MenuLayer::init();
         }
     };

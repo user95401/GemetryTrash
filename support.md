@@ -12,5 +12,12 @@ trending icon
 play sounds
 ```
 
+#### waxai
+```
+bug reports
+songs
+textures
+```
+
 ## Reported Bugs:
 pio99, waxai

@@ -80,6 +80,7 @@ class $modify(CCHttpClientLinksReplace, CCHttpClient) {
 	}
 };
 
+/*
 inline web::WebTask web_send_replace(web::WebRequest* __this, std::string_view method, std::string_view url) {
 	auto newUrl = std::string(url.data());
 	if (not server.empty()) newUrl = std::regex_replace(
@@ -103,6 +104,7 @@ $on_mod(Loaded){
 	if (hook.has_error()) log::error("hook failed: {}", hook.error_or("no error..."));
 	if (hook.has_value()) log::debug("{}", hook.value()->getRuntimeInfo().dump(4));
 };
+*/
 
 //url open
 
