@@ -8,7 +8,7 @@
 	},
 	"id": "user95401.gemetry_trash",
 	"name": "Gemetry Trash",
-	"version": "v2.8.0",
+	"version": "v2.8.1",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
@@ -23,6 +23,9 @@
 			],
 			"repl_spritesheet": [
 				"resources/spritesheets/repl_spritesheet/**/*.png"
+			],
+			"SecretSheet": [
+				"resources/spritesheets/SecretSheet/**/*.png"
 			]
 		},
 		"files": [
@@ -91,11 +94,23 @@
 			"type": "bool",
 			"default": true
 		},
+		"Freese Menu Game BG when Platformered": {
+			"name": "Freese Menu Game BG when Platformered",
+			"description": "Freese Menu Game BG when PlatformeredFreese Menu Game BG when PlatformeredFreese Menu Game BG when PlatformeredFreese Menu Game BG when Platformered....",
+			"type": "bool",
+			"default": true
+		},
 		"No Platformer in Menu Game": {
 			"name": "No Platformer in Menu Game",
 			"description": "no....",
 			"type": "bool",
 			"default": false
+		},
+		"Animate Menu Game": {
+			"name": "Animate Menu Game",
+			"description": "^v<><><^^^vvas<><><>....",
+			"type": "bool",
+			"default": true
 		},
 		"Random Shit": {
 			"type": "title",

@@ -1,10 +1,30 @@
-#pragma once
+﻿#pragma once
 #include <_main.hpp>
 
 #include <Geode/modify/MenuGameLayer.hpp>
 class $modify(MenuGameLayerExt, MenuGameLayer) {
     $override bool init() {
         auto init_result = MenuGameLayer::init();
+
+        if (SETTING(bool, "Animate Menu Game")) {
+            //move
+            auto moveTo1 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(0, 3)));//        ↑
+            auto moveTo2 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(3, 3)));//        ↗
+            auto moveTo3 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(3, 0)));//        →
+            auto moveTo4 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(-3, -3)));//    ↘
+            auto moveTo5 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(0, -3)));//        ↓
+            auto moveTo6 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(-3, 0)));//        ←
+            auto moveTo7 = CCEaseSineInOut::create(CCMoveTo::create(10, CCPoint(-3, 3)));//        ↖
+            this->runAction(CCRepeatForever::create(CCSequence::create(
+                moveTo1, moveTo2, moveTo3, moveTo4, moveTo5, moveTo6, moveTo7, nullptr
+            )));
+            //rotation
+            this->runAction(CCRepeatForever::create(CCSequence::create(
+                CCEaseSineInOut::create(CCRotateTo::create(5, 1.05)),// >
+                CCEaseSineInOut::create(CCRotateTo::create(5, -1.05)),// <
+                nullptr
+            )));
+        }
 
         auto pulsebg = CCSprite::create("game_bg_13_001.png");
         pulsebg->setID("pulsebg");
@@ -77,7 +97,7 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
         };
 
         if (SETTING(bool, "No Platformer in Menu Game")) void();
-        else {
+        else if (SETTING(bool, "Freese Menu Game BG when Platformered")) {
             m_backgroundSpeed = 0.1;
             findFirstChildRecursive<CCNode>(m_groundLayer,
                 [](CCNode* node) {
