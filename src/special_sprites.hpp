@@ -38,6 +38,18 @@ class $modify(SpecialSprites, CCSprite) {
             };
         }
     };
+    void sfx_on_init(std::string name) {
+                auto sfx_path = fmt::format("{}/{}.sfx_on_init", getMod()->getResourcesDir(), name);
+                if (fs::exists(sfx_path)) FMODAudioEngine::get()->playEffect(sfx_path);
+    }
+    $override bool initWithSpriteFrameName(const char* pszSpriteFrameName) {
+        sfx_on_init(pszSpriteFrameName);
+        return CCSprite::initWithSpriteFrameName(pszSpriteFrameName);
+    }
+    $override bool initWithFile(const char* pszFilename) {
+        sfx_on_init(pszFilename);
+        return CCSprite::initWithFile(pszFilename);
+    }
     $override static CCSprite* create(const char* pszFileName) {
         if (string::contains(pszFileName, "GJ_gradientBG")) {
             auto base_layer = CCSprite::create(pszFileName);

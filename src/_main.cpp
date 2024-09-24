@@ -2,16 +2,19 @@
 
 #ifdef GEODE_IS_WINDOWS
 
-#include <Geode/modify/CCScene.hpp>
-class $modify(WindowNameExt, CCScene) {
-    $override static CCScene* create() {
-        auto GameWindowHandle = WindowFromDC(*reinterpret_cast<HDC*>(reinterpret_cast<uintptr_t>(CCEGLView::sharedOpenGLView()->getWindow()) + 0x244));
-        SetWindowTextA(GameWindowHandle, Mod::get()->getName().data());
-        auto rtn = CCScene::create();
-        return rtn;
-    }
+#include <Geode/modify/AppDelegate.hpp>
+class $modify(WindowNameExt, AppDelegate) {
+    $override void applicationWillEnterForeground() {
+        SetWindowTextA(GetForegroundWindow(), Mod::get()->getName().data());
+        return AppDelegate::applicationWillEnterForeground();
+    };
+    $override bool applicationDidFinishLaunching() {
+        SetWindowTextA(GetForegroundWindow(), Mod::get()->getName().data());
+        return AppDelegate::applicationDidFinishLaunching();
+    };
 };
 
+#include <Geode/modify/CCScene.hpp>
 class mouse_particle : public CCParticleSystemQuad {
 public:
     static inline bool created = false;
@@ -21,8 +24,8 @@ public:
         if (created) return;
         created = true;
         shared_ref = Ref<CCParticleSystemQuad>(GameToolbox::particleFromString(
-                "200a-1a0.54a0.94a-1a90a180a0a20a1a1a0a0a0a0a0a0a1a2a0a0a0.211765a0.1a0.207843a0.1a0.207843a0.1a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a10a0a0a0a1a1a1a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0"
-        , CCParticleSystemQuad::create(), 0));
+            "200a-1a0.54a0.94a-1a90a180a0a20a1a1a0a0a0a0a0a0a1a2a0a0a0.211765a0.1a0.207843a0.1a0.207843a0.1a1a0a0a0a0a0a0a0a0a0a0a0a1a0a0a0a0a0a0a0a10a0a0a0a1a1a1a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0"
+            , CCParticleSystemQuad::create(), 0));
         shared_ref->setID("mouse_particle"_spr);
         shared_ref->schedule(schedule_selector(mouse_particle::sch));
         SceneManager::get()->keepAcrossScenes(shared_ref);
@@ -36,10 +39,10 @@ public:
             hide = game->isRunning();
             order = 0;
         }
+        hide = SETTING(bool, "Add Cursor Particles") ? hide : true;
         hide ? shared_ref->stopSystem() : shared_ref->resumeSystem();
         shared_ref->setZOrder(order);
     }
-    #include <Geode/modify/CCScene.hpp>
     class $modify(MouseParticleExt, MenuLayer) {
         $override bool init() {
             if (SETTING(bool, "Add Cursor Particles")) mouse_particle::create();

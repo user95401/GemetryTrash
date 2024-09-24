@@ -8,7 +8,7 @@
 	},
 	"id": "user95401.gemetry_trash",
 	"name": "Gemetry Trash",
-	"version": "v2.8.1",
+	"version": "v2.9.0",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
@@ -34,13 +34,17 @@
 			"resources/**/*.mpg",
 			"resources/**/*.mp3",
 			"resources/**/*.ogg",
+			"resources/**/*.wav",
 			"resources/**/*.plist",
 			"resources/**/*.rand",
+			"resources/**/*.sfx*",
 			"resources/**/**/*.mpg",
 			"resources/**/**/*.mp3",
 			"resources/**/**/*.ogg",
+			"resources/**/**/*.wav",
 			"resources/**/**/*.plist",
-			"resources/**/**/*.rand"
+			"resources/**/**/*.rand",
+			"resources/**/**/*.sfx*"
 		]
 	},
 	"settings": {
@@ -126,6 +130,18 @@
 		"Break Player Rotations At Plat": {
 			"name": "Break Player Rotations At Plat.",
 			"description": "asd....",
+			"type": "bool",
+			"default": true
+		},
+		"Funny Robot Rotation": {
+			"name": "Funny Robot Rotation",
+			"description": "robot rotation acts like ship.",
+			"type": "bool",
+			"default": true
+		},
+		"jelly cube": {
+			"name": "jelly cube",
+			"description": "jelly cube.",
 			"type": "bool",
 			"default": true
 		}

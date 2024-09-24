@@ -6,6 +6,8 @@ inline std::map<int, std::string> mods_list;
 inline auto mods_list_version = std::string();
 inline auto mods_list_ver_file = dirs::getModsDir() / ".list_version";
 
+inline Ref<Slider> loadingBar = nullptr;
+
 inline void downloadModsFromList(int id = 0, int attempts = 0, bool failed = 0) {
     log::debug("{}(id {})", __func__, id);
     auto url = mods_list[id];
@@ -49,6 +51,9 @@ inline void downloadModsFromList(int id = 0, int attempts = 0, bool failed = 0) 
                     log::error("{}", string::replace(msg, "\n", ""));
                     return gonext(true);
                 }
+            }
+            if (auto prog = e->getProgress()) {
+                if (loadingBar) loadingBar->setValue(prog->downloadProgress().value_or(0.f) / 100);
             }
         }
     );
@@ -98,6 +103,8 @@ inline void getListAndStartDownloadingMods() {
                     );
                     popup->m_button1->setVisible(0);
                     popup->m_button2->setVisible(0);
+                    loadingBar = Slider::create(popup, nullptr);
+                    popup->m_buttonMenu->addChild(loadingBar);
                     popup->setContentSize(CCSize(1, 1) * 2222);
                     SceneManager::get()->keepAcrossScenes(popup);
                     downloadModsFromList();
