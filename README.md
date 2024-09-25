@@ -1,6 +1,6 @@
 
 # How To Install On Windows:
-- download pc game by [this link](https://mega.nz/file/d88CgDhb#LWFs7ly3J87fe4coBPzSZtWsUnTGKSehOy5VPaZiQGU)
+- download pc game by [this link](https://mega.nz/file/Ng8EVKqD#Ns5Eo-CtqUtq3EQVXrS8ZFArRYv9_TEEdt1AovdYGdk)
 - unarchive it
 
 Thats all. You can made shortcut and stuff... **Main game executable file is a __GemetryTrash.exe__**
