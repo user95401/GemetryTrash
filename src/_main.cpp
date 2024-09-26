@@ -2,6 +2,20 @@
 
 #ifdef GEODE_IS_WINDOWS
 
+#include <Geode/modify/CCNode.hpp>
+class $modify(FLAlertLayerShowupStartPointExt, CCNode) {
+    $override void visit() {
+        CCNode::visit();
+        if (auto casted = typeinfo_cast<FLAlertLayer*>(this)) {
+            if (casted->m_mainLayer) {
+                if (casted->m_mainLayer->getContentSize().equals(CCDirector::get()->getWinSize())) {
+                    casted->m_mainLayer->setAnchorPoint(getMousePos() / casted->m_mainLayer->getContentSize());
+                }
+            };
+        };
+    }
+};
+
 #include <Geode/modify/AppDelegate.hpp>
 class $modify(WindowNameExt, AppDelegate) {
     $override void applicationWillEnterForeground() {

@@ -10,6 +10,7 @@ trending icon
 #### [LankerBG](https://www.youtube.com/@GDLankerBG)
 ```
 play sounds
+can let go and ClupSt3p main levels
 ```
 
 #### waxai
@@ -17,6 +18,7 @@ play sounds
 bug reports
 songs
 textures
+adversting
 ```
 
 ## Reported Bugs:

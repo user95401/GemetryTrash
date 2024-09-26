@@ -11,15 +11,11 @@ class $modify(MenuGameLayerExt, MenuGameLayer) {
         auto mousezone = CCSize(1, 1) * 42;
         auto mouseRect = CCRect(mousePos - mousezone, mousePos + mousezone);
         auto playrRect = plr->getObjectRect();
-        //log::debug("mousePos  {}", mousePos);
-        //log::debug("playrPos  {}", playrPos);
-        //log::debug("mouseRect {}", mouseRect);
-        //log::debug("playrRect {}", mouseRect);
         if (playrRect.intersectsRect(mouseRect)) {
             //log::warn("{} intersectsRect {}", playrRect, mouseRect);
             plr->m_holdingLeft = playrPos.x < mousePos.x;
             plr->m_holdingRight = playrPos.x > mousePos.x;
-            if (!plr->m_isSpider && !plr->m_isBall) plr->m_jumpBuffered = playrPos.y > mousePos.y;
+            if (!plr->m_isSpider && !plr->m_isBall) plr->m_jumpBuffered = playrPos.y + (mousezone.height / 2) > mousePos.y;
         }
     }
     $override bool init() {
