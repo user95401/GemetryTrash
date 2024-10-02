@@ -38,6 +38,8 @@ class $modify(DialogLayerExt, DialogLayer) {
 #include <Geode/modify/CCScene.hpp>
 class $modify(CCSceneDialogs, CCScene) {
     void random(float) {
+        if (auto game = GameManager::get()->m_gameLayer) if (game->isRunning()) return;
+        if (auto gameplay = GameManager::get()->m_playLayer) if (gameplay->isRunning() or gameplay->m_isPaused) return;
         auto dailogs = std::vector<CCArray*>();
         //dont do stupid
         {
@@ -121,7 +123,7 @@ class $modify(CCSceneDialogs, CCScene) {
     };
     $override static CCScene* create(void) {
         auto __this = CCScene::create();
-        __this->schedule(schedule_selector(CCSceneDialogs::random), 8.f);
+        __this->schedule(schedule_selector(CCSceneDialogs::random), 12.f);
         return __this;
     }
 };
