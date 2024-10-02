@@ -3,6 +3,8 @@
 #include <Geode/ui/GeodeUI.hpp>
 using namespace geode::prelude;
 
+#include <libs/CCLabelBMFontAnimated.h>
+
 #include <regex>
 
 #include <_fs.hpp>
@@ -142,3 +144,4 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "random_shit/loadinglayer_ruinify.hpp"
 #include "random_shit/second_floor.hpp"
 #include "random_shit/game_ruinify.hpp"
+#include "random_shit/LocalGameModes.hpp"

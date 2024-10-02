@@ -13,7 +13,7 @@ class $modify(GManager_resourcescpp, GManager) {
 #include <Geode/modify/CCSpriteFrameCache.hpp>
 class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
     $override void removeSpriteFramesFromFile(const char* plist) {
-        log::debug("{}(\"{}\")", __func__, plist);
+        //log::debug("{}(\"{}\")", __func__, plist);
         return CCSpriteFrameCache::removeSpriteFramesFromFile(plist);
     }
     $override void addSpriteFramesWithFile(const char* pszPlist) {
@@ -32,11 +32,11 @@ class $modify(CCSpriteFrameCache_resourcescpp, CCSpriteFrameCache) {
             };
         }
 
-        log::debug("{}(\"{}\")", __func__, pszPlist);
+        //log::debug("{}(\"{}\")", __func__, pszPlist);
         return CCSpriteFrameCache::addSpriteFramesWithFile(pszPlist);
     }
     $override void addSpriteFrame(CCSpriteFrame* pobFrame, const char* pszFrameName) {
-        log::debug("{}({}, \"{}\")", __func__, pobFrame, pszFrameName);
+        //log::debug("{}({}, \"{}\")", __func__, pobFrame, pszFrameName);
         return CCSpriteFrameCache::addSpriteFrame(pobFrame, pszFrameName);
     }
 };
@@ -118,7 +118,7 @@ class $modify(FMODAudioEngineExt, FMODAudioEngine) {
 };
 //dont play other songs
 #include <Geode/modify/MenuLayer.hpp>
-class $modify(MenuLayer_resourcescpp, MenuLayer) {
+class $modify(MenuLayerMenuLoopFix, MenuLayer) {
     $override bool init() {
         FMODAudioEngineExt::dontPlayNextMusic = true;
         return MenuLayer::init();

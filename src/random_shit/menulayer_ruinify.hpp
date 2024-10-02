@@ -251,9 +251,13 @@ class $modify(MenuLayerExt, MenuLayer) {
                     level->m_levelName = "Kills Count";
                     level->m_levelID = 1107;
                     level->m_levelLength = 5;
-                    level->m_bestPoints = total_kills;
+                    level->m_levelType = GJLevelType::Saved;
+                    level->m_bestTime = (total_kills);
+                    level->m_bestPoints = (total_kills);
+                    level->m_k111 = (total_kills);
                     level->m_unkString3 = GameToolbox::pointsToString(total_kills);
                     level->m_unkString4 = GameToolbox::pointsToString(total_kills);
+                    level->savePercentage(13, 0, 22, 22, 1);
                     auto popup = LevelLeaderboard::create(
                         level, LevelLeaderboardType::Global, LevelLeaderboardMode::Points
                     );
@@ -311,9 +315,10 @@ class $modify(MenuLayerExt, MenuLayer) {
             btn->m_animationEnabled = 0;
 
             menu->setPosition(pos);
+            menu->setID(title->getID() + "-menu");
             parent->addChild(menu);
 
-            auto verLabel = CCLabelBMFont::create(
+            auto verLabel = CCLabelBMFontAnimated::createWithBMFont(
                 fmt::format(
                     "Platform: {}" "\n"
                     "Version: {}" "\n"
@@ -321,15 +326,16 @@ class $modify(MenuLayerExt, MenuLayer) {
                     GEODE_PLATFORM_NAME,
                     Mod::get()->getVersion().toString(),
                     Mod::get()->getMetadata().getGeodeVersion()
-                ).c_str(), 
+                ), 
                 fmt::format("gjFont{:02d}.fnt", rand() % 60).c_str(),
-                266, kCCTextAlignmentLeft
+                kCCTextAlignmentLeft
             );
             verLabel->limitLabelWidth(76.f, 0.525f, 0.1f);
             verLabel->setPosition(CCPoint(-218.f, -36.f));
             verLabel->setAnchorPoint(CCPoint(0.f, 1.f));
             verLabel->setColor(ccColor3B(77, 77, 77));
             verLabel->setBlendFunc({ GL_ONE, GL_ONE });
+            verLabel->animateInRevealFromLeft(1.0f);
             menu->addChild(verLabel);
         }
 

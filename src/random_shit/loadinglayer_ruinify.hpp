@@ -12,12 +12,39 @@ class $modify(LoadingLayerExt, LoadingLayer) {
         if (bg) {
             auto background = rand() % 59;
             auto new_bg = CCSprite::create(fmt::format(
-                "game_bg_{:02d}_001.png", background
+                "game_bg_{:02d}_001.png", background >= 1 ? background : 1
             ).c_str());
             if (new_bg) bg->setDisplayFrame(new_bg->displayFrame());
+            auto colorID = rand() % 23;
+            auto color = reinterpret_cast<LevelSelectLayer*>(bg)->colorForPage(colorID);
+            bg->setColor(color);
+            //CCLayerGradient for idk
+            CCLayerGradient* pCCLayerGradient = CCLayerGradient::create({ 90,190,255,110 }, { 0,0,0,0 });
+            pCCLayerGradient->setBlendFunc({ GL_SRC_ALPHA, GL_ONE });//additive
+            this->addChild(pCCLayerGradient);
         }
 
-        GameManager::get()->fadeInMusic("loading_theme.mp3");
+        if(SETTING(bool, "play loading theme at resource loading")) 
+            GameManager::get()->fadeInMusic("loading_theme.mp3");
+
+        {
+            auto verLabel = CCLabelBMFontAnimated::createWithBMFont(
+                fmt::format(
+                    "Platform: {}" "\n"
+                    "Version: {}" "\n"
+                    "Geode: {}",
+                    GEODE_PLATFORM_NAME,
+                    Mod::get()->getVersion().toString(),
+                    Mod::get()->getMetadata().getGeodeVersion()
+                ),
+                fmt::format("gjFont{:02d}.fnt", rand() % 60).c_str(),
+                kCCTextAlignmentLeft
+            );
+            verLabel->limitLabelWidth(92.f, 0.5f, 0.1f);
+            verLabel->setPositionY(this->getContentHeight());
+            verLabel->setAnchorPoint(CCPoint(-0.05f, 1.1f));
+            this->addChild(verLabel);
+        };
 
         return rtn;
     }

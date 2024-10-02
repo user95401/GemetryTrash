@@ -8,7 +8,7 @@
 	},
 	"id": "user95401.gemetry_trash",
 	"name": "Gemetry Trash",
-	"version": "v2.9.1",
+	"version": "v2.10.0",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
@@ -18,14 +18,17 @@
 			"resources/sprites/**/*.png"
 		],
 		"spritesheets": {
-			"gtps_spritesheet": [
-				"resources/spritesheets/gtps_spritesheet/**/*.png"
-			],
-			"repl_spritesheet": [
-				"resources/spritesheets/repl_spritesheet/**/*.png"
-			],
 			"SecretSheet": [
 				"resources/spritesheets/SecretSheet/**/*.png"
+			],
+			"GJ_GameSheet03": [
+				"resources/spritesheets/GJ_GameSheet03/**/*.png"
+			],
+			"GJ_GameSheet04": [
+				"resources/spritesheets/GJ_GameSheet04/**/*.png"
+			],
+			"PlayerExplosion_01": [
+				"resources/spritesheets/PlayerExplosion_01/**/*.png"
 			]
 		},
 		"files": [
@@ -142,6 +145,18 @@
 		"jelly cube": {
 			"name": "jelly cube",
 			"description": "jelly cube.",
+			"type": "bool",
+			"default": true
+		},
+		"play loading theme at resource loading": {
+			"name": "play loading theme at resource loading",
+			"description": "play loading theme at resource loading.",
+			"type": "bool",
+			"default": true
+		},
+		"Update Scene Scale By Screen View": {
+			"name": "Update Scene Scale By Screen View",
+			"description": "Update Scene Scale By Screen View.",
 			"type": "bool",
 			"default": true
 		}

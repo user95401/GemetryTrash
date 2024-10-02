@@ -39,8 +39,8 @@ class $modify(SpecialSprites, CCSprite) {
         }
     };
     void sfx_on_init(std::string name) {
-                auto sfx_path = fmt::format("{}/{}.sfx_on_init", getMod()->getResourcesDir(), name);
-                if (fs::exists(sfx_path)) FMODAudioEngine::get()->playEffect(sfx_path);
+        auto sfx_path = fmt::format("{}/{}.sfx_on_init", getMod()->getResourcesDir(), name);
+        if (fs::exists(sfx_path)) FMODAudioEngine::get()->playEffect(sfx_path);
     }
     $override bool initWithSpriteFrameName(const char* pszSpriteFrameName) {
         sfx_on_init(pszSpriteFrameName);
@@ -59,8 +59,7 @@ class $modify(SpecialSprites, CCSprite) {
         return CCSprite::create(pszFileName);
     }
     $override static CCSprite* createWithSpriteFrameName(const char* pszSpriteFrameName) {
-        auto name = std::string(pszSpriteFrameName);
-        if (string::contains(name, "robtoplogo_small.png")) {
+        if (string::contains(pszSpriteFrameName, "robtoplogo_small.png")) {
             //label
             CCLabelBMFont* label = CCLabelBMFont::create("   user95401's   \noriginal", "chatFont.fnt");
             label->setAlignment(kCCTextAlignmentCenter);
@@ -72,7 +71,7 @@ class $modify(SpecialSprites, CCSprite) {
             //return
             return blankSprite;
         }
-        if (string::contains(name, "RobTopLogoBig_001.png")) {
+        if (string::contains(pszSpriteFrameName, "RobTopLogoBig_001.png")) {
             //label
             CCLabelBMFont* label = CCLabelBMFont::create("user95401's original", "gjFont06.fnt");
             label->setAlignment(kCCTextAlignmentCenter);
@@ -84,7 +83,7 @@ class $modify(SpecialSprites, CCSprite) {
             //return
             return blankSprite;
         }
-        if (string::contains(name, "GJ_logo_001.png")) {
+        if (string::contains(pszSpriteFrameName, "GJ_logo_001.png")) {
             //base layer (container)
             CCSprite* base_layer = CCSprite::create("GTPS_logo_001.png");
             //color
@@ -108,6 +107,6 @@ class $modify(SpecialSprites, CCSprite) {
             //rtn base_layer
             return base_layer;
         }
-        return CCSprite::createWithSpriteFrameName(name.c_str());
+        return CCSprite::createWithSpriteFrameName(pszSpriteFrameName);
     }
 };

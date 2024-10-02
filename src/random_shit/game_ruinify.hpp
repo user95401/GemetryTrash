@@ -2,6 +2,10 @@
 #include <Geode/ui/GeodeUI.hpp>
 using namespace geode::prelude;
 
+#include <Geode/modify/PlayLayer.hpp>
+class $modify(PlayLayerExt, PlayLayer) {
+};
+
 #include <Geode/modify/GJBaseGameLayer.hpp>
 class $modify(GJBaseGameLayerExt, GJBaseGameLayer) {
 	$override void gameEventTriggered(GJGameEvent p0, int p1, int p2) {
@@ -23,6 +27,16 @@ class $modify(GJBaseGameLayerExt, GJBaseGameLayer) {
 
 #include <Geode/modify/PlayerObject.hpp>
 class $modify(PlayerObjectExt, PlayerObject) {
+	$override void switchedToMode(GameObjectType p0) {
+		//log::debug("{}->{}({})", this, __FUNCTION__, (int)p0);
+		if (p0 == GameObjectType::ShipPortal or p0 == GameObjectType::UfoPortal) {
+			this->m_iconSprite->stopActionByTag(13);
+			this->m_iconSprite->stopActionByTag(14);
+			this->m_iconGlow->stopActionByTag(13);
+			this->m_iconGlow->stopActionByTag(14);
+		}
+		return PlayerObject::switchedToMode(p0);
+	}
 	$override void bumpPlayer(float p0, int p1, bool p2, GameObject * p3) {
 		if (SETTING(bool, "jelly cube")) this->animatePlatformerJump(p0);
 		PlayerObject::bumpPlayer(p0, p1, p2, p3);

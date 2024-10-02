@@ -3,6 +3,21 @@
 #ifdef GEODE_IS_WINDOWS
 
 #include <Geode/modify/CCNode.hpp>
+class $modify(UpdateSceneScaleByScreenView, CCNode) {
+    $override void visit() {
+        CCNode::visit();
+        if (!SETTING(bool, "Update Scene Scale By Screen View")) return;
+        if (auto game = GameManager::get()->m_gameLayer) if (game->isRunning()) return;
+        if (auto gameplay = GameManager::get()->m_playLayer) if (gameplay->isRunning() or gameplay->m_isPaused) return;
+        if (auto casted = typeinfo_cast<CCScene*>(this)) {
+            this->setScaleX(CCDirector::get()->getScreenRight() / this->getContentWidth());
+            this->setScaleY(CCDirector::get()->getScreenTop() / this->getContentHeight());
+            this->setAnchorPoint(CCPointZero);
+        };
+    }
+};
+
+#include <Geode/modify/CCNode.hpp>
 class $modify(FLAlertLayerShowupStartPointExt, CCNode) {
     $override void visit() {
         CCNode::visit();
@@ -45,7 +60,8 @@ public:
         SceneManager::get()->keepAcrossScenes(shared_ref);
     }
     void sch(float) {
-        moveactref->initWithDuration(moveactref->getDuration(), getMousePos());
+        auto pos = CCScene::get()->convertToNodeSpace(getMousePos());
+        moveactref->initWithDuration(moveactref->getDuration(), pos);
         shared_ref->runAction(moveactref);
         auto hide = false;
         auto order = getChild(shared_ref->getParent(), -1)->getZOrder();
