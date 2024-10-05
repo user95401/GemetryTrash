@@ -1,5 +1,5 @@
 {
-  "version": "v2.10.1-list1",
+  "version": "v2.11.0-list1",
   "list": [
 
     "https://github.com/MathieuAR-GDPSFH/Gauntlets-Position-Fix/releases/latest/download/jecket.gauntlets_position_fix.geode",
@@ -13,6 +13,7 @@
     "https://github.com/Capeling/Hide-Main-Menu-UI/releases/latest/download/capeling.hide_main_menu_ui.geode",
     "https://github.com/cgytrus/SmoothParticles/releases/latest/download/cgytrus.smooth-particles.geode",
 
+    "https://api.geode-sdk.org/v1/mods/hiimjustin000.more_icons/versions/latest/download",
     "https://github.com/user95401/GemetryTrash/releases/latest/download/user95401.gemetry_trash.geode",
     "https://raw.githubusercontent.com/user95401/GemetryTrash/main/data/mods/user95401.mainlevelseditor.geode"
 

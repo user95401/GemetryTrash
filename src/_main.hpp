@@ -118,10 +118,53 @@ namespace geode::utils {
     }
 };
 
+struct GJScoreKey {
+    inline static auto TotalJumps = "1";
+    inline static auto TotalAttempts = "2";
+    inline static auto CompletedLevels = "3";
+    inline static auto CompletedOnlineLevels = "4";
+    inline static auto Demons = "5";
+    inline static auto Stars = "6";
+    inline static auto CompletedMapPacksCount = "7";
+    inline static auto GoldCoins = "8";
+    inline static auto PlayersDestroyed = "9";
+    inline static auto LikedLevelsCount = "10";
+    inline static auto RatedLevelsCount = "11";
+    inline static auto UserCoins = "12";
+    inline static auto Diamonds = "13";
+    inline static auto CurrentOrbs = "14";
+    inline static auto DailyCompletionCount = "15";
+    inline static auto FireShards = "16";
+    inline static auto IceShards = "17";
+    inline static auto PoisonShards = "18";
+    inline static auto ShadowShards = "19";
+    inline static auto LavaShards = "20";
+    inline static auto DemonKeys = "21";
+    inline static auto TotalOrbs = "22";
+    inline static auto EarthShards = "23";
+    inline static auto BloodShards = "24";
+    inline static auto MetalShards = "25";
+    inline static auto LightShards = "26";
+    inline static auto SoulShards = "27";
+    inline static auto Moons = "28";
+    inline static auto DiamondShards = "29";
+    inline static auto FirePathStarProgress = "30";
+    inline static auto IcePathStarProgress = "31";
+    inline static auto PoisonPathStarProgress = "32";
+    inline static auto ShadowPathStarProgress = "33";
+    inline static auto LavaPathStarProgress = "34";
+    inline static auto EarthPathStarProgress = "35";
+    inline static auto BloodPathStarProgress = "36";
+    inline static auto MetalPathStarProgress = "37";
+    inline static auto LightPathStarProgress = "38";
+    inline static auto SoulPathStarProgress = "39";
+    inline static auto CompletedGauntlets = "40";
+    inline static auto ListRewardsCollected = "41";
+};
+
 #ifdef GEODE_IS_ANDROID
 #define debug error
 #endif // GEODE_IS_ANDROID
-
 
 inline auto repo = std::string("user95401/GemetryTrash");
 inline auto repobranch = std::string("user95401/GemetryTrash/main");
@@ -136,12 +179,15 @@ inline auto raw_content_repo_lnk = std::string("https://raw.githubusercontent.co
 #include "special_sprites.hpp"
 #include "hackpro.hpp"
 #include "globed.hpp"
-#include "random_shit/event_level.hpp"
+#include "random_shit/LocalGameModes.hpp"
+#include "random_shit/PopupRandomMeme.hpp"
+#include "random_shit/EditorCaveSounds.hpp"
 #include "random_shit/ShopkepperEyebrow.hpp"
+#include "random_shit/SoggyPop.hpp"
+#include "random_shit/event_level.hpp"
 #include "random_shit/gtasa_map.hpp"
 #include "random_shit/menulayer_ruinify.hpp"
 #include "random_shit/menuitems.hpp"
 #include "random_shit/loadinglayer_ruinify.hpp"
 #include "random_shit/second_floor.hpp"
 #include "random_shit/game_ruinify.hpp"
-#include "random_shit/LocalGameModes.hpp"

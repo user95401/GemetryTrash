@@ -8,7 +8,7 @@
 	},
 	"id": "user95401.gemetry_trash",
 	"name": "Gemetry Trash",
-	"version": "v2.10.1",
+	"version": "v2.11.0",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
@@ -157,6 +157,24 @@
 		"Update Scene Scale By Screen View": {
 			"name": "Update Scene Scale By Screen View",
 			"description": "Update Scene Scale By Screen View.",
+			"type": "bool",
+			"default": true
+		},
+		"Editor Cave Sounds": {
+			"name": "Editor Cave Sounds",
+			"description": "Editor Cave Sounds.",
+			"type": "bool",
+			"default": true
+		},
+		"Show Random Meme After Loading": {
+			"name": "Show Random Meme After Loading",
+			"description": "Show Random Meme After Loading.",
+			"type": "bool",
+			"default": true
+		},
+		"soggy cat?": {
+			"name": "soggy cat?",
+			"description": "soggy cat???",
 			"type": "bool",
 			"default": true
 		}

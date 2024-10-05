@@ -363,6 +363,15 @@ class $modify(MenuLayerExt, MenuLayer) {
             flyinAmogus_001->addChild(flyinAmogus_002);
         };
 
+        auto get_rand_meme_button_menu_long_var_here_for_ever = CCMenu::createWithItem(CCMenuItemExt::createSpriteExtra(
+            CCLabelTTF::create("get random programming meme", "Consolas", 6.f),
+            [](auto) {
+                PopupRandomMeme::loadAndShow();
+            }
+        ));
+        get_rand_meme_button_menu_long_var_here_for_ever->setPosition({ 230.f, 6.f });
+        this->addChild(get_rand_meme_button_menu_long_var_here_for_ever);
+
         return rtn;
     }
     inline static bool seenWarn = false;
