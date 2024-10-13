@@ -1,5 +1,5 @@
 {
-	"geode": "3.6.1",
+	"geode": "3.8.1",
 	"gd": {
 		"win": "2.206",
 		"android": "2.206",
@@ -7,8 +7,8 @@
 		"ios": "2.206"
 	},
 	"id": "user95401.gemetry_trash",
-	"name": "Gemetry Trash",
-	"version": "v2.11.0",
+	"name": "Gemetry Trash v2.11 [ABANDONED]",
+	"version": "v838065827583.7378.6865827578698383",
 	"developer": "user95401",
 	"description": "",
 	"early-load": true,
