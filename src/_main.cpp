@@ -86,13 +86,13 @@ public:
 #include <Geode/modify/LevelSelectLayer.hpp>
 class $modify(LevelSelectLayerColor, LevelSelectLayer) {
     $override cocos2d::ccColor3B colorForPage(int page) {
-        return GameToolbox::transformColor(LevelSelectLayer::colorForPage(page), cchsv(1, 0.5, 0.8, 0, 0));
+        return GameToolbox::transformColor(LevelSelectLayer::colorForPage(page), cchsv(1, 0.3, 0.6, 0, 0));
     }
 };
 
 #include <Geode/modify/MenuGameLayer.hpp>
 class $modify(MenuGameLayerColors, MenuGameLayer) {
     $override cocos2d::ccColor3B getBGColor(int p0) {
-        return GameToolbox::transformColor(MenuGameLayer::getBGColor(p0), cchsv(1, 0.5, 0.8, 0, 0));
+        return GameToolbox::transformColor(MenuGameLayer::getBGColor(p0), cchsv(1, 0.3, 0.6, 0, 0));
     }
 };
